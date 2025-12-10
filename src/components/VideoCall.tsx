@@ -237,7 +237,7 @@ const VideoCall: React.FC<VideoCallProps> = ({
   return (
     <div className={cn(
       "video-call-container bg-black text-white",
-      isFullscreen ? "fixed inset-0 z-50" : "relative h-96 rounded-lg overflow-hidden"
+      isFullscreen ? "fixed inset-0 z-50" : "relative h-72 rounded-lg overflow-hidden"
     )}>
       {/* Call Status Header */}
       <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/70 to-transparent p-4">
@@ -276,7 +276,7 @@ const VideoCall: React.FC<VideoCallProps> = ({
         />
         
         {/* Local Video (Picture-in-Picture) */}
-        <div className="absolute top-4 right-4 w-32 h-24 bg-gray-800 rounded-lg overflow-hidden border-2 border-white/20">
+        <div className="absolute top-4 right-4 w-24 h-18 bg-gray-800 rounded-lg overflow-hidden border-2 border-white/20">
           <video
             ref={localVideoRef}
             autoPlay

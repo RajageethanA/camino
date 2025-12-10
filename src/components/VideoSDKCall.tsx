@@ -103,7 +103,7 @@ function ParticipantView({ participantId, isLarge = false }: { participantId: st
     <div className={`relative rounded-xl overflow-hidden shadow-lg ${
       isLarge 
         ? "w-full h-full" 
-        : "w-36 h-24 border-2 border-white/20"
+        : "w-28 h-20 border-2 border-white/20"
     }`}>
       {/* Audio element - muted only for local to prevent echo */}
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
@@ -271,7 +271,7 @@ function MeetingView({
   }
 
   return (
-    <div className={`bg-gray-900 text-white flex flex-col ${isFullscreen ? "fixed inset-0 z-50" : "h-[450px] rounded-xl overflow-hidden"}`}>
+    <div className={`bg-gray-900 text-white flex flex-col ${isFullscreen ? "fixed inset-0 z-50" : "h-[320px] rounded-xl overflow-hidden"}`}>
       {/* Header */}
       <div className="bg-gray-800/80 backdrop-blur-sm px-3 py-2 flex items-center justify-between border-b border-gray-700">
         <div className="flex items-center gap-4">

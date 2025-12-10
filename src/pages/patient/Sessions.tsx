@@ -691,7 +691,7 @@ export default function Sessions() {
 
       {/* VideoSDK Call Component - Render when call is active */}
       {activeVideoCall && activeVideoCall.meetingId && (
-        <div className="fixed inset-0 z-50 bg-black">
+        <div className="fixed inset-0 z-50 bg-gray-900 flex flex-col">
           <VideoSDKCall
             sessionId={activeVideoCall.sessionId}
             participantName={activeVideoCall.therapistName}

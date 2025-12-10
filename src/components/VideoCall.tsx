@@ -272,17 +272,17 @@ const VideoCall: React.FC<VideoCallProps> = ({
           ref={remoteVideoRef}
           autoPlay
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain bg-gray-900"
         />
         
         {/* Local Video (Picture-in-Picture) */}
-        <div className="absolute top-4 right-4 w-24 h-18 bg-gray-800 rounded-lg overflow-hidden border-2 border-white/20">
+        <div className="absolute bottom-20 right-4 w-40 h-28 bg-gray-800 rounded-lg overflow-hidden border-2 border-white/30 shadow-lg">
           <video
             ref={localVideoRef}
             autoPlay
             playsInline
             muted
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain bg-gray-800"
           />
           {!isVideoEnabled && (
             <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">

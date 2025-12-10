@@ -103,7 +103,7 @@ function ParticipantView({ participantId, isLarge = false }: { participantId: st
     <div className={`relative rounded-xl overflow-hidden shadow-lg ${
       isLarge 
         ? "w-full h-full" 
-        : "w-28 h-20 border-2 border-white/20"
+        : "w-40 h-28 border-2 border-white/30 shadow-xl"
     }`}>
       {/* Audio element - muted only for local to prevent echo */}
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
@@ -113,7 +113,7 @@ function ParticipantView({ participantId, isLarge = false }: { participantId: st
           autoPlay
           playsInline
           muted={isLocal}
-          className={`w-full h-full object-cover bg-gray-900 ${!isLarge && "scale-x-[-1]"}`}
+          className={`w-full h-full object-contain bg-gray-900 ${!isLarge && "scale-x-[-1]"}`}
         />
       ) : (
         <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
@@ -157,7 +157,7 @@ function Controls() {
   const [webcamOn, setWebcamOn] = useState(true);
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex items-center justify-center gap-3">
       <Button
         onClick={() => {
           toggleMic();
@@ -165,9 +165,9 @@ function Controls() {
         }}
         size="lg"
         variant={micOn ? "outline" : "destructive"}
-        className="rounded-full w-14 h-14 p-0"
+        className="rounded-full w-12 h-12 p-0 bg-gray-700/80 hover:bg-gray-600 border-gray-600"
       >
-        {micOn ? <Mic className="w-6 h-6" /> : <MicOff className="w-6 h-6" />}
+        {micOn ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
       </Button>
 
       <Button
@@ -177,18 +177,18 @@ function Controls() {
         }}
         size="lg"
         variant={webcamOn ? "outline" : "destructive"}
-        className="rounded-full w-14 h-14 p-0"
+        className="rounded-full w-12 h-12 p-0 bg-gray-700/80 hover:bg-gray-600 border-gray-600"
       >
-        {webcamOn ? <Video className="w-6 h-6" /> : <VideoOff className="w-6 h-6" />}
+        {webcamOn ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
       </Button>
 
       <Button
         onClick={() => leave()}
         size="lg"
         variant="destructive"
-        className="rounded-full w-14 h-14 p-0 bg-red-600 hover:bg-red-700"
+        className="rounded-full w-12 h-12 p-0 bg-red-600 hover:bg-red-700"
       >
-        <PhoneOff className="w-6 h-6" />
+        <PhoneOff className="w-5 h-5" />
       </Button>
     </div>
   );
@@ -271,57 +271,57 @@ function MeetingView({
   }
 
   return (
-    <div className={`bg-gray-900 text-white flex flex-col ${isFullscreen ? "fixed inset-0 z-50" : "h-[320px] rounded-xl overflow-hidden"}`}>
+    <div className={`bg-gray-900 text-white flex flex-col ${isFullscreen ? "fixed inset-0 z-50" : "h-full w-full rounded-xl overflow-hidden"}`}>
       {/* Header */}
-      <div className="bg-gray-800/80 backdrop-blur-sm px-3 py-2 flex items-center justify-between border-b border-gray-700">
-        <div className="flex items-center gap-4">
-          <Badge className="bg-green-600 hover:bg-green-600">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse mr-2" />
+      <div className="bg-gray-800/90 backdrop-blur-sm px-4 py-2 flex items-center justify-between border-b border-gray-700/50">
+        <div className="flex items-center gap-3">
+          <Badge className="bg-green-600 hover:bg-green-600 text-xs px-2 py-0.5">
+            <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse mr-1.5" />
             Live
           </Badge>
-          <div className="flex items-center gap-2 text-gray-300">
-            <Users className="w-4 h-4" />
-            <span className="text-sm">{participantIds.length}</span>
+          <div className="flex items-center gap-1.5 text-gray-400">
+            <Users className="w-3.5 h-3.5" />
+            <span className="text-xs">{participantIds.length}</span>
           </div>
-          <span className="text-sm font-mono text-gray-300 bg-gray-700/50 px-2 py-1 rounded">
+          <span className="text-xs font-mono text-gray-400 bg-gray-700/50 px-2 py-0.5 rounded">
             {formatDuration(callDuration)}
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <Button
             variant="ghost"
             size="sm"
             onClick={copyMeetingId}
-            className="text-gray-300 hover:text-white hover:bg-gray-700"
+            className="text-gray-400 hover:text-white hover:bg-gray-700 h-8 px-2"
           >
-            <Copy className="w-4 h-4 mr-2" />
+            <Copy className="w-3.5 h-3.5 mr-1.5" />
             <span className="font-mono text-xs">{meetingId}</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="text-gray-300 hover:text-white hover:bg-gray-700"
+            className="text-gray-400 hover:text-white hover:bg-gray-700 h-8 w-8 p-0"
           >
-            {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </Button>
         </div>
       </div>
 
       {/* Video Grid */}
-      <div className="flex-1 p-2 relative">
+      <div className="flex-1 p-3 relative min-h-0">
         {participantIds.length === 0 ? (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center">
-              <div className="w-10 h-10 border-3 border-gray-600 border-t-primary rounded-full animate-spin mx-auto mb-3" />
+              <div className="w-12 h-12 border-4 border-gray-600 border-t-primary rounded-full animate-spin mx-auto mb-4" />
               <p className="text-gray-400">Connecting...</p>
             </div>
           </div>
         ) : (
           <>
             {/* Remote participant (large/main view) */}
-            <div className="w-full h-full">
+            <div className="w-full h-full rounded-lg overflow-hidden">
               {participantIds.filter(id => !participants.get(id)?.local).length > 0 ? (
                 participantIds.filter(id => !participants.get(id)?.local).map((participantId) => (
                   <ParticipantView participantId={participantId} key={participantId} isLarge={true} />
@@ -329,18 +329,18 @@ function MeetingView({
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-14 h-14 rounded-full bg-gray-700 flex items-center justify-center mx-auto mb-3">
-                      <Users className="w-7 h-7 text-gray-500" />
+                    <div className="w-16 h-16 rounded-full bg-gray-700/50 flex items-center justify-center mx-auto mb-4">
+                      <Users className="w-8 h-8 text-gray-400" />
                     </div>
-                    <p className="text-gray-400 text-base">Waiting for other participant...</p>
-                    <p className="text-gray-500 text-xs mt-1">Share the meeting ID to invite them</p>
+                    <p className="text-gray-300 text-lg font-medium">Waiting for participant...</p>
+                    <p className="text-gray-500 text-sm mt-2">Share the meeting ID to invite them</p>
                   </div>
                 </div>
               )}
             </div>
             
             {/* Local participant (small, picture-in-picture) */}
-            <div className="absolute bottom-3 right-3 z-10">
+            <div className="absolute bottom-4 right-4 z-10">
               {participantIds.filter(id => participants.get(id)?.local).map((participantId) => (
                 <ParticipantView participantId={participantId} key={participantId} isLarge={false} />
               ))}
@@ -350,7 +350,7 @@ function MeetingView({
       </div>
 
       {/* Controls */}
-      <div className="bg-gray-800/80 backdrop-blur-sm px-3 py-2 border-t border-gray-700">
+      <div className="bg-gray-800/90 backdrop-blur-sm px-4 py-3 border-t border-gray-700/50">
         <Controls />
       </div>
     </div>
